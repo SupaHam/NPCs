@@ -12,23 +12,13 @@
         <outputDir>${project.build.directory}</outputDir>
         <package>com.supaham.npcs</package>
         <main.class>${package}.NPCPlugin</main.class>
-        <annotations.version>13.0</annotations.version>
 
-        <spigot-api.version>1.8-R0.1-SNAPSHOT</spigot-api.version>
-        <lombok.version>1.14.8</lombok.version>
-        <worldguard.version>6.0.0-SNAPSHOT</worldguard.version>
         <supacommons.version>0.1-SNAPSHOT</supacommons.version>
+        <spigot-api.version>1.8-R0.1-SNAPSHOT</spigot-api.version>
+        <worldguard.version>6.0.0-SNAPSHOT</worldguard.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>${annotations.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -39,12 +29,6 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>${spigot-api.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
         </dependency>
         
         <dependency>
