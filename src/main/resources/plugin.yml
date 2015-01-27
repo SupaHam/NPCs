@@ -1,0 +1,7 @@
+name: ${project.name}
+version: ${project.version}
+main: ${main.class}
+authors: [SupaHam]
+softdepend: [WorldEdit, WorldGuard]
+commands:
+  npcs:
