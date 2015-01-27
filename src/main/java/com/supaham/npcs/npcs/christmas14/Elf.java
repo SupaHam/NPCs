@@ -16,11 +16,12 @@ import java.util.List;
 import lombok.NonNull;
 
 public class Elf extends NPCHandler {
+
+  private static final String NAME = "Elf14Handler";
   
-  private static final String NAME = "Elf14Handler"; 
   private final String ELF = "elf14";
   private final List<Entity> elfs = new ArrayList<>();
-  
+
   public Elf(@NonNull NPCManager npcManager) {
     super(npcManager, NAME);
   }
