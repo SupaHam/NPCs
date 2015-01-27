@@ -16,11 +16,12 @@ import java.util.List;
 import lombok.NonNull;
 
 public class Elf extends NPCHandler {
+
+  private static final String NAME = "Elf14Handler";
   
-  private static final String NAME = "Elf14Handler"; 
   private final String ELF = "elf14";
   private final List<Entity> elfs = new ArrayList<>();
-  
+
   public Elf(@NonNull NPCManager npcManager) {
     super(npcManager, NAME);
   }
@@ -32,7 +33,7 @@ public class Elf extends NPCHandler {
       this.elfs.add(npc);
     }
   }
-  
+
   @EventHandler
   public void onEntityInteract(PlayerInteractEntityEvent event) {
     boolean removed = this.elfs.remove(event.getRightClicked());
@@ -41,7 +42,7 @@ public class Elf extends NPCHandler {
       ((LivingEntity) event.getRightClicked()).setHealth(0D);
     }
   }
-  
+
   @EventHandler
   public void onEntityDeath(EntityDeathEvent event) {
     this.elfs.remove(event.getEntity());
