@@ -9,6 +9,7 @@ import com.supaham.npcs.events.NPCSpawnEvent;
 import com.supaham.npcs.npcs.NPCHandler;
 import com.supaham.npcs.npcs.NPCProperties;
 
+import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -142,6 +143,7 @@ public class NameHandler extends NPCHandler {
 
     private final Entity entity;
     private final ArmorStand armorStand;
+    private Location lastLocation;
     private double yMod = 0.0D;
 
     NameData(Entity entity, ArmorStand armorStand) {
@@ -170,7 +172,10 @@ public class NameHandler extends NPCHandler {
           it.remove();
           continue;
         }
-        data.armorStand.teleport(data.entity.getLocation().add(0, data.yMod, 0));
+        // Don't teleport the armor stand if the entity hasn't moved.
+        if (!data.entity.getLocation().equals(data.lastLocation)) {
+          data.armorStand.teleport(data.entity.getLocation().add(0, data.yMod, 0));
+        }
       }
     }
   }
