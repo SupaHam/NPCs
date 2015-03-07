@@ -15,7 +15,16 @@ public class NMSUtils {
   public static NBTTagCompound parse(String string) throws MojangsonParseException {
     return MojangsonParser.parse(string);
   }
-  
+
+  public static NBTTagCompound parseSafe(String string) {
+    try {
+      return parse(string);
+    } catch (MojangsonParseException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
   public static void applyNBTStringSafe(Entity entity, String nbtString) {
     try {
       applyNBTString(entity, nbtString);
@@ -23,7 +32,7 @@ public class NMSUtils {
       e.printStackTrace();
     }
   }
-  
+
   public static void applyNBTString(Entity entity, String nbtString) throws Exception {
     applyNBTString(entity, nbtString, true);
   }
