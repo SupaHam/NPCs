@@ -83,7 +83,7 @@ public class YAMLDatabase implements Database {
       checkArgument(vals.containsKey("type"), "npc type not specified.");
       EntityType type;
       try {
-        type = EntityType.valueOf(vals.remove("type").toString());
+        type = EntityType.valueOf(vals.remove("type").toString().toUpperCase());
       } catch (IllegalArgumentException e) {
         e.printStackTrace();
         continue;
