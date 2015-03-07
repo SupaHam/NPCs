@@ -11,21 +11,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-
-@RequiredArgsConstructor
-@Getter
-@Setter
 public class NPCData {
 
   private final String id;
-  @NonNull
   private final EntityType type;
   private final Location location;
   private final Map<String, Object> data = new HashMap<>();
+
+  public NPCData(String id, EntityType type, Location location) {
+    this.id = id;
+    this.type = type;
+    this.location = location;
+  }
 
   public boolean hasData(String key) {
     return this.data.containsKey(key);
@@ -45,5 +42,21 @@ public class NPCData {
                     expected.getSimpleName());
     }
     return (T) result;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public EntityType getType() {
+    return type;
+  }
+
+  public Location getLocation() {
+    return location;
+  }
+
+  public Map<String, Object> getData() {
+    return data;
   }
 }

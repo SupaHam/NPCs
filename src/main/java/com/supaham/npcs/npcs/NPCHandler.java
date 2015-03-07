@@ -2,6 +2,9 @@ package com.supaham.npcs.npcs;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import com.google.common.base.Preconditions;
+
+import com.supaham.npcs.NPCData;
 import com.supaham.npcs.NPCManager;
 import com.supaham.npcs.events.NPCEvent;
 
@@ -11,12 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 
-import com.supaham.npcs.NPCData;
-
-import lombok.Getter;
-import lombok.NonNull;
-
-@Getter
 public abstract class NPCHandler implements Listener {
 
   protected final NPCManager npcManager;
@@ -25,7 +22,9 @@ public abstract class NPCHandler implements Listener {
 
   protected String npcMetadataPrefix;
 
-  public NPCHandler(@NonNull NPCManager npcManager, @NonNull String name) {
+  public NPCHandler(NPCManager npcManager, String name) {
+    Preconditions.checkNotNull(npcManager, "npc manager cannot be not null.");
+    Preconditions.checkNotNull(name, "name cannot be not null.");
     this.npcManager = npcManager;
     this.plugin = npcManager.getOwner();
     this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
@@ -61,5 +60,21 @@ public abstract class NPCHandler implements Listener {
 
   protected void warn(String msg, Object... args) {
     plugin.getLogger().warning(String.format(msg, args));
+  }
+
+  public NPCManager getNpcManager() {
+    return npcManager;
+  }
+
+  public Plugin getPlugin() {
+    return plugin;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getNpcMetadataPrefix() {
+    return npcMetadataPrefix;
   }
 }

@@ -13,8 +13,6 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.NonNull;
-
 public class Elf extends NPCHandler {
 
   private static final String NAME = "Elf14Handler";
@@ -22,7 +20,7 @@ public class Elf extends NPCHandler {
   private final String ELF = "elf14";
   private final List<Entity> elfs = new ArrayList<>();
 
-  public Elf(@NonNull NPCManager npcManager) {
+  public Elf(NPCManager npcManager) {
     super(npcManager, NAME);
   }
 

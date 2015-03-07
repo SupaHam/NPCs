@@ -16,8 +16,6 @@ import org.bukkit.metadata.MetadataValue;
 
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-
 public class CommandsHandler extends NPCHandler {
 
   public static final String NAME = "CommandsHandler";
@@ -68,13 +66,19 @@ public class CommandsHandler extends NPCHandler {
     }
   }
 
-  @RequiredArgsConstructor
   private final class Commands {
 
     private final String left;
     private final String leftPerm;
     private final String right;
     private final String rightPerm;
+
+    public Commands(String left, String leftPerm, String right, String rightPerm) {
+      this.left = left;
+      this.leftPerm = leftPerm;
+      this.right = right;
+      this.rightPerm = rightPerm;
+    }
 
     public boolean click(Player player, boolean left) {
       if (!canInteract(left, player)) {

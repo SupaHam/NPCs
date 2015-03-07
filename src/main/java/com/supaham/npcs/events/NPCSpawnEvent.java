@@ -1,30 +1,26 @@
 package com.supaham.npcs.events;
 
+import com.google.common.base.Preconditions;
+
 import com.supaham.npcs.NPCData;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-
 /**
  * Represents an event for when an NPC spawns.
  */
-@Getter
-@Setter
 public class NPCSpawnEvent extends NPCEvent implements Cancellable {
 
   private static final HandlerList handlers = new HandlerList();
-  @NonNull
   private final NPCData data;
   
   private boolean cancelled;
 
-  public NPCSpawnEvent(Entity npc, @NonNull NPCData data) {
+  public NPCSpawnEvent(Entity npc, NPCData data) {
     super(npc);
+    Preconditions.checkNotNull(data, "data cannot be null.");
     this.data = data;
   }
 
@@ -34,5 +30,19 @@ public class NPCSpawnEvent extends NPCEvent implements Cancellable {
 
   public static HandlerList getHandlerList() {
     return handlers;
+  }
+
+  public NPCData getData() {
+    return data;
+  }
+
+  @Override
+  public boolean isCancelled() {
+    return cancelled;
+  }
+
+  @Override
+  public void setCancelled(boolean cancelled) {
+    this.cancelled = cancelled;
   }
 }

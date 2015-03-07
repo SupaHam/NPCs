@@ -1,7 +1,8 @@
 package com.supaham.npcs;
 
 import static com.google.common.base.Preconditions.checkState;
-import static com.supaham.commons.utils.StringUtils.normalizeString;
+
+import com.google.common.base.Preconditions;
 
 import com.supaham.npcs.events.NPCDespawnEvent;
 import com.supaham.npcs.events.NPCSpawnEvent;
@@ -15,6 +16,7 @@ import com.supaham.npcs.npcs.handlers.PersistenceHandler;
 import com.supaham.npcs.npcs.handlers.SocialHandler;
 import com.supaham.npcs.npcs.handlers.VehicleHandler;
 import com.supaham.npcs.npcs.handlers.WorldGuardHandler;
+import com.supaham.npcs.utils.StringUtils;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -39,31 +41,23 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-
-@Getter
 public class NPCManager implements Listener {
 
   public static final String METADATA_KEY = "NPC";
   private final Plugin owner;
 
-  @Getter(AccessLevel.NONE)
   private final Map<Class, NPCHandler> handlers = new HashMap<>();
-  @Getter(AccessLevel.NONE)
   private final Map<String, NPCHandler> handlersByName = new HashMap<>();
   private final Map<String, NPCData> datas = new HashMap<>();
   private final Set<Entity> npcs = new HashSet<>();
   private boolean defaultsRegistered = false;
-  @Getter(AccessLevel.NONE)
   private boolean spawning = false;
 
-  public NPCManager(@NonNull Plugin owner) {
+  public NPCManager(Plugin owner) {
     this(owner, true);
   }
 
-  public NPCManager(@NonNull Plugin owner, boolean defaultHandlers) {
+  public NPCManager(Plugin owner, boolean defaultHandlers) {
     this.owner = owner;
     this.owner.getServer().getPluginManager().registerEvents(this, this.owner);
     if (defaultHandlers) {
@@ -76,7 +70,7 @@ public class NPCManager implements Listener {
     this.datas.clear();
     for (NPCData npcData : database.findAll()) {
       spawn(npcData);
-      this.datas.put(normalizeString(npcData.getId()), npcData);
+      this.datas.put(StringUtils.normalizeString(npcData.getId()), npcData);
     }
   }
 
@@ -103,12 +97,14 @@ public class NPCManager implements Listener {
   }
 
   @Nullable
-  public Entity spawn(@NonNull NPCData npcData) {
+  public Entity spawn(NPCData npcData) {
     return spawn(npcData, npcData.getLocation());
   }
 
   @Nullable
-  public Entity spawn(@NonNull NPCData npcData, @NonNull Location location) {
+  public Entity spawn(NPCData npcData, Location location) {
+    Preconditions.checkNotNull(npcData, "npc data cannot be null.");
+    Preconditions.checkNotNull(location, "location cannot be null.");
     World world = location.getWorld();
     // temporary fix for EntitySpawnEvent being cancelled...
     spawning = true;
@@ -166,23 +162,23 @@ public class NPCManager implements Listener {
     }
   }
 
-  @NonNull
+  
   public Collection<NPCHandler> getAllNPCHandlers() {
     return this.handlers.values();
   }
 
   @Nullable
-  public <T extends NPCHandler> T getNPCHandler(@NonNull Class<T> clazz) {
+  public <T extends NPCHandler> T getNPCHandler(Class<T> clazz) {
     return ((T) this.handlers.get(clazz));
   }
 
   @Nullable
-  public NPCHandler getNPCHandler(@NonNull String name) {
-    return this.handlersByName.get(normalizeString(name));
+  public NPCHandler getNPCHandler(String name) {
+    Preconditions.checkNotNull(name, "name cannot be null.");
+    return this.handlersByName.get(StringUtils.normalizeString(name));
   }
 
-  @NonNull
-  public <T extends NPCHandler> T registerHandler(@NonNull Class<T> clazz) {
+  public <T extends NPCHandler> T registerHandler(Class<T> clazz) {
     T npcHandler;
     try {
       Constructor<T> constructor = clazz.getDeclaredConstructor(NPCManager.class);
@@ -198,7 +194,7 @@ public class NPCManager implements Listener {
   }
 
   @Nullable
-  public NPCHandler registerHandler(@NonNull NPCHandler npcHandler) {
+  public NPCHandler registerHandler(NPCHandler npcHandler) {
     NPCHandler put = this.handlers.put(npcHandler.getClass(), npcHandler);
     this.handlersByName.put(npcHandler.getName(), npcHandler);
     return put;
@@ -216,5 +212,21 @@ public class NPCManager implements Listener {
     if (event.getEntity().hasMetadata(METADATA_KEY)) {
       this.owner.getServer().getPluginManager().callEvent(new NPCDespawnEvent(event.getEntity()));
     }
+  }
+
+  public Plugin getOwner() {
+    return owner;
+  }
+
+  public Map<String, NPCData> getDatas() {
+    return datas;
+  }
+
+  public Set<Entity> getNpcs() {
+    return npcs;
+  }
+
+  public boolean isDefaultsRegistered() {
+    return defaultsRegistered;
   }
 }

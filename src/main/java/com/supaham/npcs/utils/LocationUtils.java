@@ -2,7 +2,7 @@ package com.supaham.npcs.utils;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.supaham.commons.utils.NumberUtils.roundExact;
+import static com.supaham.npcs.utils.NumberUtils.roundExact;
 import static java.lang.Double.parseDouble;
 
 import org.bukkit.Bukkit;

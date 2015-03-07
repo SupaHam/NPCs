@@ -1,12 +1,12 @@
 package com.supaham.npcs.npcs.database;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.supaham.commons.utils.StringUtils.normalizeString;
 
 import com.supaham.npcs.NPCData;
 import com.supaham.npcs.NPCManager;
 import com.supaham.npcs.utils.ConfigUtils;
 import com.supaham.npcs.utils.LocationUtils;
+import com.supaham.npcs.utils.StringUtils;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -110,7 +110,7 @@ public class YAMLDatabase implements Database {
     }
 
     for (NPCData data : datas) {
-      ConfigurationSection cs = npcs.createSection(normalizeString(data.getId()));
+      ConfigurationSection cs = npcs.createSection(StringUtils.normalizeString(data.getId()));
       cs.set("type", data.getType());
       cs.set("location", LocationUtils.serialize(data.getLocation()));
       for (Entry<String, Object> entry : data.getData().entrySet()) {

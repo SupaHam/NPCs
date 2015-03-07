@@ -29,8 +29,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import lombok.NonNull;
-
 public class NameHandler extends NPCHandler {
 
   public static final String NAME = "NameHandler";
@@ -126,7 +124,8 @@ public class NameHandler extends NPCHandler {
     }
   }
 
-  public Entity getVehicleEntity(@NonNull Entity entity) {
+  public Entity getVehicleEntity(Entity entity) {
+    Preconditions.checkNotNull(entity, "entity cannot be null.");
     List<MetadataValue> metadata = entity.getMetadata(this.nametagMetadata);
     if (!metadata.isEmpty()) {
       int targetId = (int) metadata.get(0).value();

@@ -5,12 +5,12 @@ import static com.supaham.npcs.npcs.NPCProperties.SOCIAL;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 
-import com.supaham.commons.utils.CollectionUtils;
 import com.supaham.npcs.NPCManager;
 import com.supaham.npcs.events.NPCDespawnEvent;
 import com.supaham.npcs.events.NPCSpawnEvent;
 import com.supaham.npcs.npcs.NPCHandler;
 import com.supaham.npcs.npcs.NPCProperties;
+import com.supaham.npcs.utils.CollectionUtils;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -29,9 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Adds support for vehicle properties, such as being able to ride the entity. The
@@ -121,11 +118,17 @@ public class SocialHandler extends NPCHandler {
     }
   }
 
-  @RequiredArgsConstructor
-  @Getter
   private class Social {
 
     protected Entity npc;
+
+    public Social(Entity npc) {
+      this.npc = npc;
+    }
+
+    public Entity getNpc() {
+      return npc;
+    }
   }
 
   public final class ApproachSocial extends Social {
@@ -137,6 +140,7 @@ public class SocialHandler extends NPCHandler {
     private List<Player> received = new ArrayList<>();
 
     private ApproachSocial(Entity npc, Map<String, Object> map) {
+      super(npc);
       this.npc = npc;
       if (map.containsKey("cooldown")) {
         this.cooldown = Integer.parseInt(map.get("cooldown").toString());
