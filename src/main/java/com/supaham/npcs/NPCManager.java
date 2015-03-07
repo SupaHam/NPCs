@@ -97,7 +97,9 @@ public class NPCManager implements Listener {
     if (database != null) {
       this.save(database);
     }
-    handlers.values().forEach(NPCHandler::unregister);
+    for (NPCHandler npcHandler : handlers.values()) {
+      npcHandler.unregister();
+    }
   }
 
   @Nullable

@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -145,9 +144,9 @@ public class SocialHandler extends NPCHandler {
       if (map.containsKey("range")) {
         this.range = Double.parseDouble(map.get("range").toString());
       }
-      this.messages.addAll(((List<String>) map.get("messages")).stream()
-                               .map(m -> ChatColor.translateAlternateColorCodes('&', m))
-                               .collect(Collectors.toList()));
+      for (String s : (List<String>) map.get("messages")) {
+        this.messages.add(ChatColor.translateAlternateColorCodes('&', s));
+      }
     }
 
     public void handle(PlayerMoveEvent event) {
