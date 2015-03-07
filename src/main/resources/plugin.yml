@@ -5,3 +5,6 @@ authors: [SupaHam]
 softdepend: [WorldEdit, WorldGuard]
 commands:
   npcs:
+    description: "Reloads the NPCs configuration."
+    permission: "npcs.cmd.reload"
+    usage: "/npcs"

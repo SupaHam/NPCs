@@ -41,12 +41,9 @@ public class NPCPlugin extends JavaPlugin {
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-    if (!sender.hasPermission("npcs.reload")) {
-      sender.sendMessage(ChatColor.RED + "You don't have permission.");
-      return true;
-    }
-    this.npcManager
-        .reload(new YAMLDatabase(this.npcManager, new File(getDataFolder(), "npcs.yml")));
+    this.npcManager.reload(new YAMLDatabase(this.npcManager, 
+                                            new File(getDataFolder(), "npcs.yml")));
+    sender.sendMessage(ChatColor.YELLOW + "You've successfully reloaded NPCs.");
     return true;
   }
 }
