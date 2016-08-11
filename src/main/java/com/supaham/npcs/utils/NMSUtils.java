@@ -1,10 +1,10 @@
 package com.supaham.npcs.utils;
 
-import net.minecraft.server.v1_9_R1.MojangsonParseException;
-import net.minecraft.server.v1_9_R1.MojangsonParser;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_10_R1.MojangsonParseException;
+import net.minecraft.server.v1_10_R1.MojangsonParser;
+import net.minecraft.server.v1_10_R1.NBTTagCompound;
 
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 
 /**
